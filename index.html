@@ -1,777 +1,105 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="light">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>برنامج المواكبة والتوجيه: صناعة المحتوى و Faceless Content</title>
-  <!-- Google Fonts: Cairo -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Cairo', 'sans-serif'],
-          },
-          colors: {
-            notion: {
-              bg: '#ffffff',
-              sidebar: '#f7f7f5',
-              border: '#e9e9e7',
-              text: '#37352f',
-              muted: '#787774',
-              hover: '#efefed',
-              darkBg: '#191919',
-              darkCard: '#202020',
-              darkBorder: '#2f2f2f',
-              darkText: '#e3e2e0',
-              darkMuted: '#9b9a97',
-              darkHover: '#2c2c2c',
-            }
-          }
-        }
-      }
-    };
-  </script>
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
-    /* Custom Checkbox Animation */
-    .notion-checkbox:checked + span {
-      text-decoration: line-through;
-      opacity: 0.6;
-    }
-    /* Print Styles for clean PDF export */
-    @media print {
-      .no-print {
-        display: none !important;
-      }
-      body {
-        background: #ffffff !important;
-        color: #111827 !important;
-      }
-      .print-card {
-        break-inside: avoid;
-        border: 1px solid #d1d5db !important;
-        box-shadow: none !important;
-        background: #ffffff !important;
-        color: #111827 !important;
-      }
-      textarea {
-        border: 1px solid #e5e7eb !important;
-        background: #f9fafb !important;
-        color: #111827 !important;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامج مواكبة TikTok Faceless</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .dark { background-color: #0f172a; color: #f8fafc; }
+    </style>
 </head>
-<body class="bg-notion-bg text-notion-text dark:bg-notion-darkBg dark:text-notion-darkText min-h-screen antialiased selection:bg-indigo-500/20">
+<body class="bg-slate-50 text-slate-800 min-h-screen transition-colors duration-300" id="bodyElement">
 
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-5 left-5 z-50 hidden items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-sm font-medium transition-all duration-300 no-print">
-    <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-    </svg>
-    <span id="toast-msg">تم الحفظ بنجاح</span>
-  </div>
-
-  <!-- Top Navigation Bar (Notion Style) -->
-  <nav class="sticky top-0 z-30 backdrop-blur-md bg-white/85 dark:bg-[#191919]/85 border-b border-notion-border dark:border-notion-darkBorder no-print">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
-      <!-- Breadcrumb -->
-      <div class="flex items-center gap-2 text-sm text-notion-muted dark:text-notion-darkMuted truncate">
-        <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-xs">🎯</span>
-        <span class="font-medium text-notion-text dark:text-notion-darkText truncate">مساحة عمل الكوتشينغ</span>
-        <span>/</span>
-        <span class="truncate">برنامج TikTok Faceless</span>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-2 shrink-0">
-        <!-- Copy Markdown for Notion -->
-        <button onclick="copyNotionMarkdown()" title="نسخ البرنامج بصيغة Markdown للـ Notion" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-notion-darkCard hover:bg-notion-hover dark:hover:bg-notion-darkHover transition cursor-pointer">
-          <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-          </svg>
-          <span class="hidden sm:inline">نسخ لـ Notion</span>
-        </button>
-
-        <!-- Print / PDF -->
-        <button onclick="window.print()" title="طباعة أو حفظ كملف PDF" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-notion-darkCard hover:bg-notion-hover dark:hover:bg-notion-darkHover transition cursor-pointer">
-          <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-          </svg>
-          <span class="hidden sm:inline">طباعة / PDF</span>
-        </button>
-
-        <!-- Theme Toggle -->
-        <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل الوضع الليلي والنهاري" class="p-2 rounded-lg border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-notion-darkCard hover:bg-notion-hover dark:hover:bg-notion-darkHover transition cursor-pointer">
-          <!-- Sun Icon (shown in dark mode) -->
-          <svg id="sun-icon" class="w-4 h-4 text-amber-400 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-          <!-- Moon Icon (shown in light mode) -->
-          <svg id="moon-icon" class="w-4 h-4 text-slate-700 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Main Container -->
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-8">
-
-    <!-- Notion Page Header -->
-    <header class="space-y-6">
-      <!-- Cover Banner Accent -->
-      <div class="relative rounded-2xl overflow-hidden bg-gradient-to-l from-indigo-600 via-violet-600 to-slate-900 p-6 sm:p-8 text-white shadow-sm">
-        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div class="space-y-2.5 max-w-2xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-xs font-semibold tracking-wide">
-              <span>🚀 خارطة طريق عملية (1-on-1 Coaching)</span>
+    <!-- Top Navigation / Controls -->
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-4 px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🎯</span>
+                <h1 class="font-bold text-lg dark:text-white">مساحة عمل الكوتشينغ / برنامج TikTok Faceless</h1>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold leading-snug">
-              برنامج المواكبة والتوجيه: صناعة المحتوى و Faceless Content (تيك توك)
-            </h1>
-            <p class="text-indigo-100 text-sm sm:text-base leading-relaxed">
-              خطة تطبيقية متكاملة للانتقال من الصفر إلى بناء حساب تيك توك احترافي بدون إظهار الوجه، مع فهم خوارزميات الانتشار وصناعة الفيديوهات الفيروسية.
-            </p>
-          </div>
-
-          <!-- Client Info Quick Edit Box -->
-          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 min-w-[230px] space-y-2.5">
-            <div class="text-xs text-indigo-100 font-semibold">بطاقة المتدرب / الزبون</div>
-            <div>
-              <label for="client-name" class="sr-only">اسم الزبون</label>
-              <input id="client-name" type="text" placeholder="أدخل اسم الزبون هنا..." oninput="saveClientMeta()" class="w-full px-3 py-1.5 rounded-lg bg-white/15 border border-white/20 text-white placeholder-indigo-200/70 text-sm focus:outline-none focus:ring-2 focus:ring-white/50" />
+            <div class="flex items-center gap-3">
+                <button onclick="toggleDarkMode()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-yellow-400 hover:bg-slate-200 transition" title="تغيير المظهر">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                <button onclick="exportToPDF()" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
+                    <span>طباعة / PDF 🖨️</span>
+                </button>
+                <button onclick="copyMarkdown()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition shadow-sm">
+                    <span>نسخ لـ Notion 📋</span>
+                </button>
             </div>
-            <div>
-              <label for="start-date" class="sr-only">تاريخ البداية</label>
-              <input id="start-date" type="date" oninput="saveClientMeta()" class="w-full px-3 py-1.5 rounded-lg bg-white/15 border border-white/20 text-white text-xs focus:outline-none focus:ring-2 focus:ring-white/50" />
-            </div>
-          </div>
         </div>
-      </div>
-
-      <!-- 4 Quick Stats Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Stat 1: Duration -->
-        <div class="print-card p-4 rounded-xl border border-notion-border dark:border-notion-darkBorder bg-notion-sidebar/60 dark:bg-notion-darkCard flex items-start gap-3.5">
-          <div class="p-2.5 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 shrink-0">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div>
-            <div class="text-xs text-notion-muted dark:text-notion-darkMuted font-medium">المدة الزمنية</div>
-            <div class="text-base font-bold mt-0.5">4 أسابيع (1 شهر)</div>
-            <div class="text-xs text-notion-muted dark:text-notion-darkMuted mt-0.5">قابل للتجديد الشهري</div>
-          </div>
-        </div>
-
-        <!-- Stat 2: Sessions -->
-        <div class="print-card p-4 rounded-xl border border-notion-border dark:border-notion-darkBorder bg-notion-sidebar/60 dark:bg-notion-darkCard flex items-start gap-3.5">
-          <div class="p-2.5 rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400 shrink-0">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div>
-            <div class="text-xs text-notion-muted dark:text-notion-darkMuted font-medium">حصص المباشر (Zoom)</div>
-            <div class="text-base font-bold mt-0.5">8 حصص (ساعة/حصة)</div>
-            <div class="text-xs text-notion-muted dark:text-notion-darkMuted mt-0.5">حصتان أسبوعياً</div>
-          </div>
-        </div>
-
-        <!-- Stat 3: Daily Support -->
-        <div class="print-card p-4 rounded-xl border border-notion-border dark:border-notion-darkBorder bg-notion-sidebar/60 dark:bg-notion-darkCard flex items-start gap-3.5">
-          <div class="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-          </div>
-          <div>
-            <div class="text-xs text-notion-muted dark:text-notion-darkMuted font-medium">المتابعة اليومية</div>
-            <div class="text-base font-bold mt-0.5">يومياً عبر WhatsApp</div>
-            <div class="text-xs text-notion-muted dark:text-notion-darkMuted mt-0.5">تصحيح الواجبات والتوجيه</div>
-          </div>
-        </div>
-
-        <!-- Stat 4: Interactive Progress -->
-        <div class="print-card p-4 rounded-xl border border-notion-border dark:border-notion-darkBorder bg-notion-sidebar/60 dark:bg-notion-darkCard flex flex-col justify-between">
-          <div class="flex items-center justify-between">
-            <span class="text-xs text-notion-muted dark:text-notion-darkMuted font-medium">نسبة الإنجاز الكلية</span>
-            <span id="progress-percent" class="text-sm font-extrabold text-indigo-600 dark:text-indigo-400">0%</span>
-          </div>
-          <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden my-2">
-            <div id="progress-bar" class="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-          <div class="flex items-center justify-between text-xs text-notion-muted dark:text-notion-darkMuted">
-            <span id="progress-count">0 من 16 مهمة مكتملة</span>
-            <button onclick="resetAllProgress()" class="text-rose-500 hover:underline no-print cursor-pointer">تصفير</button>
-          </div>
-        </div>
-      </div>
     </header>
 
-    <!-- Filter Tabs & Controls -->
-    <section class="flex flex-wrap items-center justify-between gap-3 border-b border-notion-border dark:border-notion-darkBorder pb-4 no-print">
-      <div class="flex flex-wrap items-center gap-1.5" role="tablist" aria-label="تصفية الأسابيع">
-        <button onclick="filterWeeks('all')" data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-lg text-sm font-semibold bg-notion-text text-white dark:bg-white dark:text-notion-darkBg transition cursor-pointer">
-          الكل (4 أسابيع)
-        </button>
-        <button onclick="filterWeeks('1')" data-filter="1" class="filter-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-notion-muted dark:text-notion-darkMuted hover:bg-notion-hover dark:hover:bg-notion-darkHover transition cursor-pointer">
-          الأسبوع 1
-        </button>
-        <button onclick="filterWeeks('2')" data-filter="2" class="filter-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-notion-muted dark:text-notion-darkMuted hover:bg-notion-hover dark:hover:bg-notion-darkHover transition cursor-pointer">
-          الأسبوع 2
-        </button>
-        <button onclick="filterWeeks('3')" data-filter="3" class="filter-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-notion-muted dark:text-notion-darkMuted hover:bg-notion-hover dark:hover:bg-notion-darkHover transition cursor-pointer">
-          الأسبوع 3
-        </button>
-        <button onclick="filterWeeks('4')" data-filter="4" class="filter-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-notion-muted dark:text-notion-darkMuted hover:bg-notion-hover dark:hover:bg-notion-darkHover transition cursor-pointer">
-          الأسبوع 4
-        </button>
-      </div>
-
-      <div class="text-xs text-notion-muted dark:text-notion-darkMuted flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
-        <span>يتم حفظ التقدم والملاحظات تلقائياً في المتصفح</span>
-      </div>
-    </section>
-
-    <!-- Curriculum Weeks Container (Rendered dynamically via JS for clean state & persistence) -->
-    <section id="weeks-container" class="space-y-8"></section>
-
-    <!-- Weekly Tracker & Overall Coach Summary -->
-    <section class="print-card rounded-2xl border border-notion-border dark:border-notion-darkBorder bg-notion-sidebar/50 dark:bg-notion-darkCard p-6 space-y-5">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-notion-border dark:border-notion-darkBorder pb-4">
-        <div>
-          <h2 class="text-lg font-bold flex items-center gap-2">
-            <span>✅ مساحة المتابعة الأسبوعية (Weekly Tracker)</span>
-          </h2>
-          <p class="text-xs text-notion-muted dark:text-notion-darkMuted mt-0.5">
-            ملخص حالة الالتزام لكل أسبوع بناءً على الحضور وتسليم الواجبات عبر الواتساب
-          </p>
-        </div>
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 self-start sm:self-center">
-          تحديث تلقائي
-        </span>
-      </div>
-
-      <!-- 4-Week Summary Grid -->
-      <div id="tracker-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5"></div>
-
-      <!-- General Coach Notes -->
-      <div class="pt-2 space-y-2">
-        <label for="general-notes" class="block text-sm font-bold text-notion-text dark:text-notion-darkText">
-          📝 ملاحظات وتقييم المدرب العام (Coach General Notes):
-        </label>
-        <textarea id="general-notes" rows="3" oninput="saveGeneralNotes()" placeholder="اكتب هنا تقييمك العام لمستوى الزبون، النيتش المختار، أو توصيات الشهر القادم..." class="w-full p-3.5 rounded-xl border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-notion-darkBg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition resize-y"></textarea>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="max-w-5xl mx-auto px-4 sm:px-6 py-6 border-t border-notion-border dark:border-notion-darkBorder text-center text-xs text-notion-muted dark:text-notion-darkMuted">
-    برنامج المواكبة والتوجيه في صناعة المحتوى الرقمي و Faceless Content • مصمم للعمل مع Notion
-  </footer>
-
-  <!-- Interactive Application Script -->
-  <script>
-    // Curriculum Data Structure
-    const programData = [
-      {
-        week: 1,
-        title: "الأسبوع الأول: الأساسيات، الخوارزميات، وصناعة الفكرة",
-        badge: "المرحلة التأسيسية",
-        badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-        sessions: [
-          {
-            id: "s1",
-            number: "الحصة 1",
-            title: "الأساسيات، اختيار النيتش (Niche)، وفهم خوارزميات تيك توك",
-            duration: "ساعة واحدة (Zoom)",
-            topics: [
-              "شرح معايير خوارزمية تيك توك (نسبة الإكمال Completion Rate، وقت المشاهدة Watch Time، التفاعل).",
-              "الفرق بين صناعة المحتوى التقليدية ومحتوى Faceless Content وأنواعه الأكثر نجاحاً.",
-              "معايير اختيار نيتش مربح عليه طلب ومشاهدات عالية ومناسب لاهتمامات الزبون."
-            ],
-            homework: "تحديد 3 نيتشات مربحة واختيار واحد منها + تحليل 5 حسابات منافسة وإرسال الروابط عبر واتساب."
-          },
-          {
-            id: "s2",
-            number: "الحصة 2",
-            title: "هندسة الأفكار والهوك (Hooks) وصناعة السكربت",
-            duration: "ساعة واحدة (Zoom)",
-            topics: [
-              "طرق استخراج أفكار فيروسية مضمونة دون الحاجة للبدء من الصفر.",
-              "صياغة الهوك البصري (Visual Hook) والهوك الكلامي لوقف التمرير (Scroll-stopping) في أول 3 ثوانٍ.",
-              "بنية السكربت القصير الجذاب (المقدمة المشوقة، القيمة المركزة، الخاتمة)."
-            ],
-            homework: "كتابة 5 سكربتات قصيرة كاملة مع هوك بصري ونصي قوي وإرسالها للمراجعة."
-          }
-        ]
-      },
-      {
-        week: 2,
-        title: "الأسبوع الثاني: التجهيز والمونتاج العملي",
-        badge: "مرحلة الإنتاج",
-        badgeColor: "bg-violet-500/10 text-violet-600 dark:text-violet-400",
-        sessions: [
-          {
-            id: "s3",
-            number: "الحصة 3",
-            title: "مصادر الفيديوهات والصوتيات (Assets) وتجهيز بيئة العمل",
-            duration: "ساعة واحدة (Zoom)",
-            topics: [
-              "أفضل المواقع والمصادر للحصول على مقاطع فيديو عالية الجودة بدون حقوق طبع ونشر (Stock & Clips).",
-              "إعداد التعليق الصوتي (Voiceover) أو السرد النصي، واختيار الموسيقى والمؤثرات الصوتية (SFX).",
-              "تنظيم الملفات وبناء مكتبة موارد خاصة لتسريع وتيرة الإنتاج الأسبوعي."
-            ],
-            homework: "تجميع بنك فيديوهات ومؤثرات صوتية + توليد أول تعليق صوتي جاهز للمونتاج."
-          },
-          {
-            id: "s4",
-            number: "الحصة 4",
-            title: "المونتاج الأساسي والاحترافي (الجزء 1: التقطيع والإيقاع)",
-            duration: "ساعة واحدة (Zoom)",
-            topics: [
-              "شرح عملي لواجهة برنامج المونتاج (CapCut) وأهم الاختصارات.",
-              "قاعدة التغيير البصري كل 2 إلى 3 ثوانٍ للحفاظ على تركيز المشاهد (Retention).",
-              "ضبط تزامن الصوت مع الصورة وقص الفراغات (Jump Cuts) باحترافية."
-            ],
-            homework: "مونتاج أول فيديو تجريبي (30-45 ثانية) وإرساله عبر واتساب للتصحيح."
-          }
-        ]
-      },
-      {
-        week: 3,
-        title: "الأسبوع الثالث: الاحترافية وإطلاق الحساب",
-        badge: "مرحلة التطوير",
-        badgeColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-        sessions: [
-          {
-            id: "s5",
-            number: "الحصة 5",
-            title: "المونتاج المتقدم (الجزء 2: الكابشن، المؤثرات، والاحتفاظ بالمشاهد)",
-            duration: "ساعة واحدة (Zoom)",
-            topics: [
-              "تصميم النصوص المتحركة (Auto Captions) بخطوط وألوان جذابة ومقروءة.",
-              "إضافة المؤثرات الصوتية (Whoosh, Pop, Risers) والانتقالات السلسة دون مبالغة.",
-              "تصحيح الألوان وإعدادات التصدير المثالية لتيك توك (Export 1080p 60fps)."
-            ],
-            homework: "تطبيق التعديلات على الفيديو الأول + مونتاج فيديو ثانٍ متكامل بجودة عالية."
-          },
-          {
-            id: "s6",
-            number: "الحصة 6",
-            title: "استراتيجية حسابات Faceless وإعداد الحساب بالطريقة الصحيحة",
-            duration: "ساعة واحدة (Zoom)",
-            topics: [
-              "خطوات إنشاء الحساب وتهيئته (Warm-up) ليفهم تيك توك جمهورك المستهدف وتفادي الـ Shadowban.",
-              "اختيار اسم مستخدم احترافي، تصميم الشعار (Logo)، وكتابة بايو (Bio) يحفز على المتابعة.",
-              "بناء هوية بصرية موحدة تميز الحساب في مجال الـ Faceless."
-            ],
-            homework: "إنشاء الحساب، ضبط الإعدادات، وتجهيز 3 فيديوهات في المسودات (Drafts)."
-          }
-        ]
-      },
-      {
-        week: 4,
-        title: "الأسبوع الرابع: النشر، التحليل، والانتشار",
-        badge: "مرحلة الانطلاق والنمو",
-        badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-        sessions: [
-          {
-            id: "s7",
-            number: "الحصة 7",
-            title: "استراتيجية النشر، التوقيت، وتحسين محركات البحث (TikTok SEO)",
-            duration: "ساعة واحدة (Zoom)",
-            topics: [
-              "كيفية كتابة الوصف (Caption) واختيار الكلمات المفتاحية والهاشتاغات ليتصدر الفيديو نتائج البحث.",
-              "تحديد أفضل أوقات النشر وبناء جدول نشر أسبوعي مستدام.",
-              "استراتيجية التفاعل مع التعليقات الأولى لزيادة دفع الخوارزمية للفيديو."
-            ],
-            homework: "نشر أول 3 فيديوهات وفق الخطة ومشاركة الروابط في مجموعة المتابعة لمراقبة التفاعل."
-          },
-          {
-            id: "s8",
-            number: "الحصة 8",
-            title: "قراءة الإحصائيات (Analytics)، إصلاح الأخطاء، وخطة الشهر القادم",
-            duration: "ساعة واحدة (Zoom)",
-            topics: [
-              "قراءة منحنى الاحتفاظ بالجمهور (Retention Graph): تحديد اللحظة التي يخرج فيها المشاهدون ومعالجتها.",
-              "تقييم شامل لأداء الشهر الأول وتحديد نقاط القوة والضعف.",
-              "وضع خارطة طريق وخطة مضاعفة النتائج للشهر القادم."
-            ],
-            homework: "تحليل نتائج الفيديوهات المنشورة وإعداد خطة محتوى للأسبوع الخامس بناءً على البيانات."
-          }
-        ]
-      }
-    ];
-
-    const STORAGE_KEY = 'tiktok_faceless_coaching_v1';
-
-    // Default State
-    let appState = {
-      theme: 'light',
-      clientName: '',
-      startDate: '',
-      checked: {},      // e.g. { "s1_attend": true, "s1_hw": false }
-      weekNotes: {},    // e.g. { "1": "...", "2": "..." }
-      generalNotes: ''
-    };
-
-    // Load State from LocalStorage
-    function loadState() {
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          appState = { ...appState, ...JSON.parse(saved) };
-        }
-      } catch (e) {
-        console.error('Error loading state:', e);
-      }
-    }
-
-    // Save State to LocalStorage
-    function saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-      } catch (e) {
-        console.error('Error saving state:', e);
-      }
-    }
-
-    // Show Toast Message
-    let toastTimer;
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      const toastMsg = document.getElementById('toast-msg');
-      toastMsg.textContent = msg;
-      toast.classList.remove('hidden');
-      toast.classList.add('flex');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.add('hidden');
-        toast.classList.remove('flex');
-      }, 2400);
-    }
-
-    // Theme Management
-    function applyTheme() {
-      const html = document.documentElement;
-      if (appState.theme === 'dark') {
-        html.classList.add('dark');
-      } else {
-        html.classList.remove('dark');
-      }
-    }
-
-    function toggleTheme() {
-      appState.theme = appState.theme === 'dark' ? 'light' : 'dark';
-      applyTheme();
-      saveState();
-    }
-
-    // Render Weeks & Sessions
-    function renderWeeks() {
-      const container = document.getElementById('weeks-container');
-      container.innerHTML = '';
-
-      programData.forEach((weekObj) => {
-        const weekEl = document.createElement('div');
-        weekEl.className = 'week-block space-y-4';
-        weekEl.setAttribute('data-week', weekObj.week);
-
-        // Week Header
-        const weekHeader = `
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2">
-            <div class="flex items-center gap-3">
-              <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-notion-text text-white dark:bg-white dark:text-notion-darkBg font-extrabold text-sm">
-                ${weekObj.week}
-              </span>
-              <h2 class="text-lg sm:text-xl font-extrabold text-notion-text dark:text-notion-darkText">
-                ${weekObj.title}
-              </h2>
+    <main class="max-w-6xl mx-auto px-6 py-8">
+        
+        <!-- Hero Header -->
+        <div class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-3xl p-8 mb-8 shadow-xl relative overflow-hidden">
+            <div class="absolute -left-10 -bottom-10 opacity-10 text-9xl font-black">TikTok</div>
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <div class="md:col-span-2">
+                    <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">خطوة بخطوة للنجاح</span>
+                    <h2 class="text-3xl md:text-4xl font-black mb-3">برنامج المواكبة والتوجيه: صناعة المحتوى و Faceless Content (تيك توك)</h2>
+                    <p class="text-indigo-100 text-sm md:text-base leading-relaxed">خطوة تطبيقية متكاملة للانتقال من الصفر إلى بناء حساب تيك توك احترافي بدون إظهار الوجه، مع فهم خوارزميات الانتشار وصناعة الفيديوهات الفيروسية.</p>
+                </div>
+                <!-- بطاقة الزبون المحدثة -->
+                <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/20">
+                    <label class="block text-xs font-bold text-indigo-200 mb-2 uppercase">بطاقة المتدرب / الزبون</label>
+                    <input type="text" id="clientNameInput" oninput="saveClientData()" placeholder="أدخل اسم الزبون هنا..." class="w-full bg-white/20 border border-white/30 rounded-xl px-4 py-2 text-white placeholder-indigo-200 text-sm focus:outline-none focus:ring-2 focus:ring-white mb-3 font-semibold">
+                    <div class="flex items-center gap-2">
+                        <input type="date" id="clientDateInput" onchange="saveClientData()" class="w-full bg-white/20 border border-white/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none">
+                    </div>
+                </div>
             </div>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${weekObj.badgeColor} self-start sm:self-center">
-              ${weekObj.badge}
-            </span>
-          </div>
-        `;
+        </div>
 
-        // Sessions Grid (2 sessions per week)
-        let sessionsHTML = '<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">';
-        weekObj.sessions.forEach((session) => {
-          const attendKey = `${session.id}_attend`;
-          const hwKey = `${session.id}_hw`;
-          const isAttendChecked = !!appState.checked[attendKey];
-          const isHwChecked = !!appState.checked[hwKey];
-
-          const topicsList = session.topics
-            .map(
-              (t) => `
-              <li class="flex items-start gap-2 text-sm text-notion-text/90 dark:text-notion-darkText/90 leading-relaxed">
-                <span class="text-indigo-500 mt-1.5 text-xs">●</span>
-                <span>${t}</span>
-              </li>`
-            )
-            .join('');
-
-          sessionsHTML += `
-            <article class="print-card flex flex-col justify-between rounded-2xl border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-notion-darkCard p-5 sm:p-6 shadow-xs hover:border-indigo-500/40 transition">
-              <div class="space-y-4">
-                <!-- Session Top Meta -->
-                <div class="flex items-center justify-between gap-2">
-                  <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300">
-                    ${session.number}
-                  </span>
-                  <span class="text-xs text-notion-muted dark:text-notion-darkMuted flex items-center gap-1">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    ${session.duration}
-                  </span>
+        <!-- Quick Stats Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-slate-400 text-xs font-bold block mb-1">المدة الزمنية</span>
+                    <h3 class="font-bold text-lg dark:text-white">4 أسابيع (1 شهر)</h3>
+                    <span class="text-xs text-emerald-500 font-medium">قابل للتجديد الشهري</span>
                 </div>
-
-                <!-- Session Title -->
-                <h3 class="text-base sm:text-lg font-bold leading-snug">
-                  ${session.title}
-                </h3>
-
-                <!-- Educational Topics -->
-                <div class="space-y-2">
-                  <div class="text-xs font-bold uppercase tracking-wider text-notion-muted dark:text-notion-darkMuted">
-                    المحاور التعليمية:
-                  </div>
-                  <ul class="space-y-1.5">
-                    ${topicsList}
-                  </ul>
+                <div class="p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl text-xl">📅</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-slate-400 text-xs font-bold block mb-1">حصص المباشر (Zoom)</span>
+                    <h3 class="font-bold text-lg dark:text-white">8 حصص (ساعة / حصة)</h3>
+                    <span class="text-xs text-indigo-500 font-medium">حصتان أسبوعياً</span>
                 </div>
-              </div>
+                <div class="p-3 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl text-xl">🎥</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-slate-400 text-xs font-bold block mb-1">المتابعة اليومية</span>
+                    <h3 class="font-bold text-lg dark:text-white">يومياً عبر WhatsApp</h3>
+                    <span class="text-xs text-emerald-500 font-medium">تصحيح الواجبات والتوجيه</span>
+                </div>
+                <div class="p-3 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl text-xl">💬</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-slate-400 text-xs font-bold block mb-1">نسبة الإنجاز الكلية</span>
+                    <h3 class="font-bold text-lg dark:text-white" id="progressText">0%</h3>
+                    <span class="text-xs text-slate-400" id="completedCountText">0 من 16 مهمة مكتملة</span>
+                </div>
+                <div class="w-16">
+                    <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="progressBar" class="bg-indigo-600 h-full w-0 transition-all duration-500"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-              <!-- Interactive Checkboxes Section -->
-              <div class="mt-6 pt-4 border-t border-notion-border dark:border-notion-darkBorder space-y-3">
-                <!-- Attendance Checkbox -->
-                <label class="flex items-center gap-3 p-2.5 rounded-xl bg-notion-sidebar/70 dark:bg-notion-darkBg/60 hover:bg-notion-hover dark:hover:bg-notion-darkHover cursor-pointer transition">
-                  <input type="checkbox" ${isAttendChecked ? 'checked' : ''} onchange="toggleCheck('${attendKey}')" class="notion-checkbox w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" />
-                  <span class="text-xs sm:text-sm font-semibold">تم عقد حصة Zoom وحضور الزبون</span>
-                </label>
-
-                <!-- Homework Checkbox -->
-                <label class="flex items-start gap-3 p-3 rounded-xl bg-amber-500/5 border border-amber-500/20 hover:bg-amber-500/10 cursor-pointer transition">
-                  <input type="checkbox" ${isHwChecked ? 'checked' : ''} onchange="toggleCheck('${hwKey}')" class="notion-checkbox mt-0.5 w-4 h-4 rounded border-amber-400 text-amber-600 focus:ring-amber-500 cursor-pointer shrink-0" />
-                  <span class="text-xs sm:text-sm leading-relaxed">
-                    <strong class="text-amber-700 dark:text-amber-400">مهمة الزبون (الواجب عبر واتساب):</strong>
-                    ${session.homework}
-                  </span>
-                </label>
-              </div>
-            </article>
-          `;
-        });
-        sessionsHTML += '</div>';
-
-        // Week Quick Coach Notes
-        const weekNoteVal = appState.weekNotes[weekObj.week] || '';
-        const weekNotesHTML = `
-          <div class="print-card rounded-xl border border-notion-border dark:border-notion-darkBorder bg-notion-sidebar/40 dark:bg-notion-darkCard/60 p-4">
-            <label for="week-note-${weekObj.week}" class="block text-xs font-bold text-notion-muted dark:text-notion-darkMuted mb-1.5">
-              📌 ملاحظات المدرب الخاصة بالأسبوع ${weekObj.week} (روابط، أفكار مقترحة، أو تنبيهات):
-            </label>
-            <textarea id="week-note-${weekObj.week}" rows="2" oninput="saveWeekNote(${weekObj.week}, this.value)" placeholder="أضف ملاحظات سريعة للأسبوع ${weekObj.week}..." class="w-full px-3 py-2 rounded-lg border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-notion-darkBg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition resize-y">${weekNoteVal}</textarea>
-          </div>
-        `;
-
-        weekEl.innerHTML = weekHeader + sessionsHTML + weekNotesHTML;
-        container.appendChild(weekEl);
-      });
-    }
-
-    // Toggle Checkbox & Update Progress
-    function toggleCheck(key) {
-      appState.checked[key] = !appState.checked[key];
-      saveState();
-      updateProgressAndTracker();
-    }
-
-    // Update Progress Bar & Weekly Tracker Cards
-    function updateProgressAndTracker() {
-      const totalTasks = programData.length * 4; // 4 weeks * 2 sessions * 2 checkboxes = 16
-      let completedTasks = 0;
-
-      Object.values(appState.checked).forEach((val) => {
-        if (val) completedTasks++;
-      });
-
-      const percent = Math.round((completedTasks / totalTasks) * 100);
-      document.getElementById('progress-percent').textContent = `${percent}%`;
-      document.getElementById('progress-bar').style.width = `${percent}%`;
-      document.getElementById('progress-count').textContent = `${completedTasks} من ${totalTasks} مهمة مكتملة`;
-
-      // Render Tracker Cards
-      const trackerGrid = document.getElementById('tracker-grid');
-      trackerGrid.innerHTML = '';
-
-      programData.forEach((w) => {
-        const s1 = w.sessions[0].id;
-        const s2 = w.sessions[1].id;
-        const c1 = !!appState.checked[`${s1}_attend`];
-        const c2 = !!appState.checked[`${s2}_attend`];
-        const hwDone = !!appState.checked[`${s1}_hw`] && !!appState.checked[`${s2}_hw`];
-        const doneCount = [c1, c2, !!appState.checked[`${s1}_hw`], !!appState.checked[`${s2}_hw`]].filter(Boolean).length;
-
-        const card = document.createElement('div');
-        card.className = 'p-3.5 rounded-xl border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-notion-darkBg space-y-2.5';
-        card.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="text-sm font-bold">الأسبوع ${w.week}</span>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${doneCount === 4 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-slate-500/10 text-notion-muted dark:text-notion-darkMuted'}">
-              ${doneCount}/4
-            </span>
-          </div>
-          <ul class="space-y-1.5 text-xs">
-            <li class="flex items-center gap-2 ${c1 ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-notion-muted dark:text-notion-darkMuted'}">
-              <span>${c1 ? '☑' : '☐'}</span>
-              <span>حضور ${w.sessions[0].number}</span>
-            </li>
-            <li class="flex items-center gap-2 ${c2 ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-notion-muted dark:text-notion-darkMuted'}">
-              <span>${c2 ? '☑' : '☐'}</span>
-              <span>حضور ${w.sessions[1].number}</span>
-            </li>
-            <li class="flex items-center gap-2 ${hwDone ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-notion-muted dark:text-notion-darkMuted'}">
-              <span>${hwDone ? '☑' : '☐'}</span>
-              <span>تسليم واجبات الأسبوع</span>
-            </li>
-          </ul>
-        `;
-        trackerGrid.appendChild(card);
-      });
-    }
-
-    // Filter Weeks
-    function filterWeeks(weekFilter) {
-      // Update active button style
-      document.querySelectorAll('.filter-btn').forEach((btn) => {
-        if (btn.getAttribute('data-filter') === weekFilter) {
-          btn.className = 'filter-btn active px-3.5 py-1.5 rounded-lg text-sm font-semibold bg-notion-text text-white dark:bg-white dark:text-notion-darkBg transition cursor-pointer';
-        } else {
-          btn.className = 'filter-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-notion-muted dark:text-notion-darkMuted hover:bg-notion-hover dark:hover:bg-notion-darkHover transition cursor-pointer';
-        }
-      });
-
-      // Show/Hide week blocks
-      document.querySelectorAll('.week-block').forEach((block) => {
-        if (weekFilter === 'all' || block.getAttribute('data-week') === weekFilter) {
-          block.classList.remove('hidden');
-        } else {
-          block.classList.add('hidden');
-        }
-      });
-    }
-
-    // Save Notes & Client Meta
-    function saveWeekNote(weekNum, value) {
-      appState.weekNotes[weekNum] = value;
-      saveState();
-    }
-
-    function saveGeneralNotes() {
-      appState.generalNotes = document.getElementById('general-notes').value;
-      saveState();
-    }
-
-    function saveClientMeta() {
-      appState.clientName = document.getElementById('client-name').value;
-      appState.startDate = document.getElementById('start-date').value;
-      saveState();
-    }
-
-    // Reset All Progress (Custom inline confirmation without confirm())
-    let resetConfirmPending = false;
-    function resetAllProgress() {
-      if (!resetConfirmPending) {
-        resetConfirmPending = true;
-        showToast('اضغط مرة أخرى على "تصفير" لتأكيد مسح علامات الإنجاز');
-        setTimeout(() => {
-          resetConfirmPending = false;
-        }, 3500);
-        return;
-      }
-      resetConfirmPending = false;
-      appState.checked = {};
-      saveState();
-      renderWeeks();
-      updateProgressAndTracker();
-      showToast('تم تصفير نسبة الإنجاز بنجاح');
-    }
-
-    // Copy Markdown formatted specifically for Notion
-    function copyNotionMarkdown() {
-      const client = appState.clientName ? appState.clientName : 'غير محدد';
-      const date = appState.startDate ? appState.startDate : 'غير محدد';
-
-      let md = `# 🎯 برنامج المواكبة والتوجيه: صناعة المحتوى و Faceless Content (تيك توك)\n\n`;
-      md += `> **المتدرب:** ${client} | **تاريخ البداية:** ${date}\n`;
-      md += `> **المدة:** 4 أسابيع (1 شهر) | **الحصص:** 8 حصص Zoom (ساعة/حصة) | **المتابعة:** يومية عبر WhatsApp\n\n---\n\n`;
-
-      programData.forEach((w) => {
-        md += `## ${w.title}\n`;
-        w.sessions.forEach((s) => {
-          const attendMark = appState.checked[`${s.id}_attend`] ? 'x' : ' ';
-          const hwMark = appState.checked[`${s.id}_hw`] ? 'x' : ' ';
-          md += `### ${s.number}: ${s.title}\n`;
-          s.topics.forEach((t) => {
-            md += `- ${t}\n`;
-          });
-          md += `- [${attendMark}] **حضور الحصة المباشرة (Zoom)**\n`;
-          md += `- [${hwMark}] **مهمة الزبون (واتساب):** ${s.homework}\n\n`;
-        });
-        if (appState.weekNotes[w.week]) {
-          md += `> 📌 **ملاحظات الأسبوع ${w.week}:** ${appState.weekNotes[w.week]}\n\n`;
-        }
-        md += `---\n\n`;
-      });
-
-      if (appState.generalNotes) {
-        md += `## 📝 ملاحظات وتقييم المدرب العام\n${appState.generalNotes}\n`;
-      }
-
-      // Copy using textarea + execCommand for reliable iframe compatibility
-      const tempTextArea = document.createElement('textarea');
-      tempTextArea.value = md;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      try {
-        document.execCommand('copy');
-        showToast('تم نسخ البرنامج بصيغة Markdown! الصقه الآن في Notion');
-      } catch (err) {
-        showToast('تعذر النسخ التلقائي');
-      }
-      document.body.removeChild(tempTextArea);
-    }
-
-    // Initialize Page
-    window.addEventListener('DOMContentLoaded', () => {
-      loadState();
-      applyTheme();
-      document.getElementById('client-name').value = appState.clientName || '';
-      document.getElementById('start-date').value = appState.startDate || '';
-      document.getElementById('general-notes').value = appState.generalNotes || '';
-      renderWeeks();
-      updateProgressAndTracker();
-    });
-  </script>
-</body>
-</html>
+        <!-- Filter Weeks Tabs -->
+        <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2">
+            <button onclick="filterWeeks('all')" id="btn-all" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow-sm transition">الكل (4 أسابيع)</button>
+            <button onclick="filterWeeks('week1')" id="btn-week1" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition">الأسبوع 1</button>
+            <button onclick="filterWeeks('week2')" id="btn-week2" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition">الأسبوع 2</button>
+            <button onclick="filterWeeks('week3')" id="btn-week3" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition">الأسبوع 3</button>
+            <button onclick="filterWeeks('week4')" id="btn-week4" class="px-5 py-2.5 rounded
