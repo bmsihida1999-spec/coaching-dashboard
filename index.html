@@ -45,13 +45,18 @@
                     <h2 class="text-3xl md:text-4xl font-black mb-3">برنامج المواكبة والتوجيه: صناعة المحتوى و Faceless Content (تيك توك)</h2>
                     <p class="text-indigo-100 text-sm md:text-base leading-relaxed">خطوة تطبيقية متكاملة للانتقال من الصفر إلى بناء حساب تيك توك احترافي بدون إظهار الوجه، مع فهم خوارزميات الانتشار وصناعة الفيديوهات الفيروسية.</p>
                 </div>
-                <!-- بطاقة الزبون المحدثة -->
+                
+                <!-- بطاقة الزبون مع زر الحفظ -->
                 <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/20">
                     <label class="block text-xs font-bold text-indigo-200 mb-2 uppercase">بطاقة المتدرب / الزبون</label>
-                    <input type="text" id="clientNameInput" oninput="saveClientData()" placeholder="أدخل اسم الزبون هنا..." class="w-full bg-white/20 border border-white/30 rounded-xl px-4 py-2 text-white placeholder-indigo-200 text-sm focus:outline-none focus:ring-2 focus:ring-white mb-3 font-semibold">
-                    <div class="flex items-center gap-2">
-                        <input type="date" id="clientDateInput" onchange="saveClientData()" class="w-full bg-white/20 border border-white/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none">
+                    <input type="text" id="clientNameInput" placeholder="أدخل اسم الزبون هنا..." class="w-full bg-white/20 border border-white/30 rounded-xl px-4 py-2 text-white placeholder-indigo-200 text-sm focus:outline-none focus:ring-2 focus:ring-white mb-3 font-semibold">
+                    <div class="flex items-center gap-2 mb-3">
+                        <input type="date" id="clientDateInput" class="w-full bg-white/20 border border-white/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none">
                     </div>
+                    <button onclick="saveClientDataExplicit()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                        <span>💾 حفظ بيانات الزبون</span>
+                    </button>
+                    <span id="saveStatus" class="block text-center text-[10px] text-emerald-200 mt-1.5 h-4"></span>
                 </div>
             </div>
         </div>
@@ -102,4 +107,358 @@
             <button onclick="filterWeeks('week1')" id="btn-week1" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition">الأسبوع 1</button>
             <button onclick="filterWeeks('week2')" id="btn-week2" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition">الأسبوع 2</button>
             <button onclick="filterWeeks('week3')" id="btn-week3" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition">الأسبوع 3</button>
-            <button onclick="filterWeeks('week4')" id="btn-week4" class="px-5 py-2.5 rounded
+            <button onclick="filterWeeks('week4')" id="btn-week4" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition">الأسبوع 4</button>
+        </div>
+
+        <!-- Weeks Sections Container -->
+        <div class="space-y-8" id="weeksContainer">
+
+            <!-- أسبوع 1 -->
+            <div class="week-section bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm" data-week="week1">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
+                    <div class="flex items-center gap-4">
+                        <span class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-black rounded-2xl flex items-center justify-center text-xl">1</span>
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white">الأسبوع الأول: الأساسيات، الخوارزميات، وصناعة الفكرة</h3>
+                            <span class="text-xs text-slate-400">تحديد النيتش، فهم الخوارزميات، وكتابة السكربتات</span>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-xs font-bold px-3 py-1 rounded-full">المرحلة التأسيسية</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- الحصة 1 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 text-xs font-bold px-2.5 py-1 rounded-lg">الحصة 1</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱️ ساعة واحدة (Zoom)</span>
+                        </div>
+                        <h4 class="font-bold text-base mb-2 dark:text-white">كيف تفكر خوارزمية تيك توك + اختيار النيتش</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 list-disc list-inside">
+                            <li>معايير الخوارزمية (نسبة الإكمال، وقت المشاهدة، والتفاعل).</li>
+                            <li>الفرق بين المحتوى العادي ومحتوى Faceless وأنواعه الناجحة.</li>
+                            <li>معايير اختيار نيتش عليه طلب ومشاهدات عالية.</li>
+                        </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="task-checkbox mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" data-id="w1_h1_task" onchange="autoSaveTask()">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">مهمة الزبون: إرسال 3 أفكار نيتشات + روابط 5 حسابات ناجحة في نفس المجال على واتساب.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- الحصة 2 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 text-xs font-bold px-2.5 py-1 rounded-lg">الحصة 2</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱️ ساعة واحدة (Zoom)</span>
+                        </div>
+                        <h4 class="font-bold text-base mb-2 dark:text-white">صناعة الأفكار والـ Hook (أول 3 ثوانٍ)</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 list-disc list-inside">
+                            <li>طرق استخراج أفكار فيروسية مضمونة (بدون البدء من الصفر).</li>
+                            <li>صياغة الهوك البصري (Visual Hook) والهوك الكلامي لوقف التمرير.</li>
+                        </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="task-checkbox mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" data-id="w1_h2_task" onchange="autoSaveTask()">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">مهمة الزبون: كتابة 5 سكربتات كاملة جاهزة للتنفيذ.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أسبوع 2 -->
+            <div class="week-section bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm" data-week="week2">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
+                    <div class="flex items-center gap-4">
+                        <span class="w-12 h-12 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 font-black rounded-2xl flex items-center justify-center text-xl">2</span>
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white">الأسبوع الثاني: التجهيز والمونتاج العملي</h3>
+                            <span class="text-xs text-slate-400">مصادر الـ Assets، الهندسة الصوتية، ومونتاج الفيديو الأول</span>
+                        </div>
+                    </div>
+                    <span class="bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 text-xs font-bold px-3 py-1 rounded-full">المرحلة التقنية</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- الحصة 3 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 text-xs font-bold px-2.5 py-1 rounded-lg">الحصة 3</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱️ ساعة واحدة (Zoom)</span>
+                        </div>
+                        <h4 class="font-bold text-base mb-2 dark:text-white">أدوات ومصادر الـ Faceless Content</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 list-disc list-inside">
+                            <li>مصادر مقاطع الفيديو عالية الجودة بدون حقوق طبع ونشر.</li>
+                            <li>إعداد التعليق الصوتي واختيار الموسيقى والمؤثرات الصوتية.</li>
+                        </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="task-checkbox mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" data-id="w2_h3_task" onchange="autoSaveTask()">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">مهمة الزبون: تجهيز مجلد خاص بالملفات الصوتية والبصرية لأول فيديوهين.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- الحصة 4 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 text-xs font-bold px-2.5 py-1 rounded-lg">الحصة 4</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱️ ساعة واحدة (Zoom)</span>
+                        </div>
+                        <h4 class="font-bold text-base mb-2 dark:text-white">أساسيات المونتاج وسرعة الإيقاع (Pacing)</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 list-disc list-inside">
+                            <li>شرح واجهة برنامج المونتاج (CapCut).</li>
+                            <li>قاعدة التغيير البصري كل 2 إلى 3 ثوانٍ للحفاظ على الاحتفاظ (Retention).</li>
+                        </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="task-checkbox mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" data-id="w2_h4_task" onchange="autoSaveTask()">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">مهمة الزبون: مونتاج النسخة الأولية من الفيديو رقم 1 وإرساله للمراجعة.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أسبوع 3 -->
+            <div class="week-section bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm" data-week="week3">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
+                    <div class="flex items-center gap-4">
+                        <span class="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-black rounded-2xl flex items-center justify-center text-xl">3</span>
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white">الأسبوع الثالث: الاحترافية وإطلاق الحساب</h3>
+                            <span class="text-xs text-slate-400">إضافة المؤثرات، الكابشن، وتهيئة حساب الفاسلس</span>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-3 py-1 rounded-full">مرحلة الإطلاق</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- الحصة 5 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-lg">الحصة 5</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱️ ساعة واحدة (Zoom)</span>
+                        </div>
+                        <h4 class="font-bold text-base mb-2 dark:text-white">أسرار رفع جودة الفيديو والـ Captions</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 list-disc list-inside">
+                            <li>تصميم النصوص المتحركة (Auto Captions) بشكل جذاب.</li>
+                            <li>إضافة المؤثرات الصوتية وإعدادات التصدير الاحترافية (1080p 60fps).</li>
+                        </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="task-checkbox mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" data-id="w3_h5_task" onchange="autoSaveTask()">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">مهمة الزبون: تعديل الفيديو رقم 1 + إنجاز الفيديو رقم 2.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- الحصة 6 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-lg">الحصة 6</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱️ ساعة واحدة (Zoom)</span>
+                        </div>
+                        <h4 class="font-bold text-base mb-2 dark:text-white">تجهيز حساب Faceless وتفادي الـ Shadowban</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 list-disc list-inside">
+                            <li>خطوات إنشاء الحساب وتهيئته (Warm-up) للجمهور المستهدف.</li>
+                            <li>اختيار الاسم، الصورة، والبايو الاحترافي.</li>
+                        </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="task-checkbox mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" data-id="w3_h6_task" onchange="autoSaveTask()">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">مهمة الزبون: إطلاق الحساب وتجهيز 3 فيديوهات في المسودات (Drafts).</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أسبوع 4 -->
+            <div class="week-section bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm" data-week="week4">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
+                    <div class="flex items-center gap-4">
+                        <span class="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 font-black rounded-2xl flex items-center justify-center text-xl">4</span>
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white">الأسبوع الرابع: النشر، التحليل، والانتشار</h3>
+                            <span class="text-xs text-slate-400">استراتيجية النشر، TikTok SEO، وقراءة الإحصائيات</span>
+                        </div>
+                    </div>
+                    <span class="bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-xs font-bold px-3 py-1 rounded-full">مرحلة النمو</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- الحصة 7 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg">الحصة 7</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱️ ساعة واحدة (Zoom)</span>
+                        </div>
+                        <h4 class="font-bold text-base mb-2 dark:text-white">استراتيجية النشر و TikTok SEO</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 list-disc list-inside">
+                            <li>كيف تكتب الوصف والهاشتاغات ليتصدر الفيديو نتائج البحث.</li>
+                            <li>جدول النشر الأسبوعي المثالي وكيفية التعامل مع التعليقات الأولى.</li>
+                        </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="task-checkbox mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" data-id="w4_h7_task" onchange="autoSaveTask()">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">مهمة الزبون: بدء النشر الفعلي ومشاركة روابط الفيديوهات.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- الحصة 8 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg">الحصة 8</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱️ ساعة واحدة (Zoom)</span>
+                        </div>
+                        <h4 class="font-bold text-base mb-2 dark:text-white">تحليل الأداء وتطوير النتائج (Analytics)</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 list-disc list-inside">
+                            <li>قراءة منحنى الاحتفاظ بالجمهور (Retention Graph).</li>
+                            <li>تقييم عمل الشهر الأول وتحديد خطة الاستمرارية.</li>
+                        </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="task-checkbox mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" data-id="w4_h8_task" onchange="autoSaveTask()">
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">مهمة الزبون: إعداد خطة محتوى للأسبوع الخامس بناءً على البيانات.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function getClientKey() {
+            const nameInput = document.getElementById('clientNameInput').value.trim().toLowerCase();
+            return nameInput ? `client_${nameInput}` : 'default_client';
+        }
+
+        function saveClientDataExplicit() {
+            const nameVal = document.getElementById('clientNameInput').value.trim();
+            if (!nameVal) {
+                alert('المرجو إدخال اسم الزبون أولاً!');
+                return;
+            }
+            const clientKey = getClientKey();
+            const data = {
+                name: nameVal,
+                date: document.getElementById('clientDateInput').value,
+                tasks: {}
+            };
+
+            document.querySelectorAll('.task-checkbox').forEach(cb => {
+                data.tasks[cb.dataset.id] = cb.checked;
+            });
+
+            localStorage.setItem(clientKey, JSON.stringify(data));
+            
+            // إظهار رسالة النجاح
+            const status = document.getElementById('saveStatus');
+            status.innerText = '✅ تم حفظ بيانات الزبون بنجاح!';
+            setTimeout(() => { status.innerText = ''; }, 3000);
+            updateProgress();
+        }
+
+        function loadClientData() {
+            const clientKey = getClientKey();
+            const saved = localStorage.getItem(clientKey);
+            
+            document.querySelectorAll('.task-checkbox').forEach(cb => cb.checked = false);
+
+            if (saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('clientDateInput').value = data.date || '';
+                if (data.tasks) {
+                    document.querySelectorAll('.task-checkbox').forEach(cb => {
+                        if (data.tasks[cb.dataset.id] !== undefined) {
+                            cb.checked = data.tasks[cb.dataset.id];
+                        }
+                    });
+                }
+            } else {
+                document.getElementById('clientDateInput').value = '';
+            }
+            updateProgress();
+        }
+
+        // عند تغيير اسم الزبون يتم جلب بياناته إن كانت موجودة مسبقاً
+        document.getElementById('clientNameInput').addEventListener('input', () => {
+            loadClientData();
+        });
+
+        function autoSaveTask() {
+            updateProgress();
+            const clientKey = getClientKey();
+            let saved = localStorage.getItem(clientKey);
+            let data = saved ? JSON.parse(saved) : { name: document.getElementById('clientNameInput').value, date: document.getElementById('clientDateInput').value, tasks: {} };
+            
+            data.tasks = {};
+            document.querySelectorAll('.task-checkbox').forEach(cb => { 
+                data.tasks[cb.dataset.id] = cb.checked; 
+            });
+            localStorage.setItem(clientKey, JSON.stringify(data));
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.task-checkbox');
+            const total = checkboxes.length;
+            let checked = 0;
+            checkboxes.forEach(cb => { if (cb.checked) checked++; });
+
+            const percentage = total > 0 ? Math.round((checked / total) * 100) : 0;
+            document.getElementById('progressText').innerText = percentage + '%';
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('completedCountText').innerText = `${checked} من ${total} مهمة مكتملة`;
+        }
+
+        function filterWeeks(week) {
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition";
+            });
+            document.getElementById('btn-' + week).className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow-sm transition";
+
+            document.querySelectorAll('.week-section').forEach(sec => {
+                if (week === 'all' || sec.dataset.week === week) {
+                    sec.style.display = 'block';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleDarkMode() {
+            const body = document.getElementById('bodyElement');
+            body.classList.toggle('dark');
+            const isDark = body.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            document.getElementById('themeIcon').innerText = isDark ? '☀️' : '🌙';
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.getElementById('bodyElement').classList.add('dark');
+            document.getElementById('themeIcon').innerText = '☀️';
+        }
+
+        function exportToPDF() { window.print(); }
+
+        function copyMarkdown() {
+            const md = `# 🎯 برنامج مواكبة TikTok Faceless
+- الزبون: ${document.getElementById('clientNameInput').value || 'غير محدد'}
+- تاريخ البداية: ${document.getElementById('clientDateInput').value || 'غير محدد'}
+`;
+            navigator.clipboard.writeText(md);
+            alert('تم نسخ ملخص البرنامج بنجاح!');
+        }
+
+        loadClientData();
+    </script>
+</body>
+</html>
